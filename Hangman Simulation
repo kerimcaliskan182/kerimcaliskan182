@@ -1,0 +1,449 @@
+# This code is a terminal playing hangman game. The game has a story. In this story, we are in Eric Andre Show, and the game goes from there.
+
+import random
+import sys
+import time
+
+word_list_easy = ["seven",
+                  "world",
+                  "about",
+                  "again",
+                  "heart",
+                  "pizza",
+                  "water",
+                  "happy",
+                  "sixty",
+                  "board",
+                  "angel",
+                  "death",
+                  "green",
+                  "music",
+                  "fifty",
+                  "woman",
+                  "words",
+                  "lemon", ]
+word_list_medium = ["acquits,",
+                    "calyxes",
+                    "coziest",
+                    "rasputin",
+                    "rihanna",
+                    "science",
+                    "addends",
+                    "leonine",
+                    "boleros",
+                    "freedom",
+                    "diamond",
+                    "dolphin",
+                    "history",
+                    "avoider",
+                    "ageists",
+                    "",
+                    ]
+word_list_hard = ["alzheimers",
+                  "relaxation",
+                  "depression",
+                  "loneliness",
+                  "atrophying",
+                  "belowdecks",
+                  "baseboards",
+                  "cyclopedic",
+                  "bayberries",
+                  "benefiting",
+                  "contraflow",
+                  "absolutest",
+                  "autonomist",
+                  "absconders",
+                  "abscessing",
+                  "bumblefoot",
+                  ]
+
+
+def get_word_easy():
+    word_easy = random.choice(word_list_easy)
+    return word_easy.upper()
+
+
+def get_word_medium():
+    word_medium = random.choice(word_list_medium)
+    return word_medium.upper()
+
+
+def get_word_hard():
+    word_hard = random.choice(word_list_hard)
+    return word_hard.upper()
+
+
+def game_easy(word_easy):
+    secret_word = "_" * len(word_easy)
+    guessed = False
+    guessed_letters = []
+    guessed_words = []
+    tries = 6
+    print("Hello, welcome to the Eric Andre show, please welcome our guest.")
+    time.sleep(2)
+    name = str(input("Can you give us your name: "))
+    time.sleep(3)
+    print("Today's episode we are trying a game where", name, "plays hangman.")
+    time.sleep(3)
+    print("Whenever", name, "gets a wrong letter we will hang the Hannibal part by part.")
+    time.sleep(3)
+    print("We already killed the Hannibal and we separate his body parts.")
+    time.sleep(3)
+    print("However, he is still connecting from after-world.")
+    time.sleep(3)
+    print("How are you Hannibal.")
+    time.sleep(1)
+    print("...")
+    time.sleep(1)
+    print("...")
+    time.sleep(1)
+    print("Well our internet is not working as it seems.")
+    time.sleep(3)
+    print("*Eric vomits because of the bad smell of the Hannibal*")
+    time.sleep(4)
+    print("Because", name, "is little bit scared", name, "trying the easy mode.")
+    time.sleep(3)
+    print("Let's start the game, shall we ", name, "?")
+    time.sleep(2)
+    print(""""
+------------------------------------------------------------------------------------------------------------------------                                          
+      0            Hello, my name is Hannibal. I am from Eric Andre show. Talking you from afterlife.
+     /|\\          Eric Andre already shot me and killed me.
+      |            https://www.youtube.com/watch?v=m-AK4FmMG_A 
+     / \\          This is the footage of me getting murdered on the show, I think it's funny.
+                             Just SAVE ME.
+------------------------------------------------------------------------------------------------------------------------                                         
+        """)
+    time.sleep(6)
+    print(who_killed_hannibal(tries))
+    print(secret_word)
+    print("\n")
+    while not guessed and tries > 0:
+        guess = str(input("Yeah, OK, hit me with your best shot: ")).upper()
+        if len(guess) == 1 and guess.isalpha():
+            if guess in guessed_letters:
+                print("HAHAHA you already said that letter ", guess, "LOL")
+            elif guess not in word_easy:
+                print("You are so baaaddd.", guess, "is not in the word. And this is easy mode. LOL")
+                tries -= 1
+                guessed_letters.append(guess)
+            else:
+                print("Well done. You guessed this letter. Lucky Hannibal. Letter was", guess)
+                guessed_letters.append(guess)
+                list_of_word = list(secret_word)
+                indices = [i for i, letter in enumerate(word_easy) if letter == guess]
+                for i in indices:
+                    list_of_word[i] = guess
+                secret_word = "".join(list_of_word)
+                if "_" not in secret_word:
+                    guessed = True
+        elif len(guess) == len(word_easy) and guess.isalpha():
+            if guess in guessed_words:
+                print("You already guessed this word, are you trying to mess with me ?", guess)
+            elif guess != word_easy:
+                print(guess, "isn't the word. You are not that smart.")
+                tries -= 1
+                guessed_words.append(guess)
+            else:
+                guessed = True
+                secret_word = word_easy
+        else:
+            print("What did you say, what the ????")
+        print(who_killed_hannibal(tries))
+        print(secret_word)
+        print("\n")
+    if guessed:
+        print("Well well well, you win this round but this is easy mode, try other modes.")
+    else:
+        print("LOL you ran out of tries, word was", word_easy, ".")
+        print("WHO KILLED HANNIBAL ?")
+
+
+def game_medium(word_medium):
+    secret_word = "_" * len(word_medium)
+    guessed = False
+    guessed_letters = []
+    guessed_words = []
+    tries = 6
+    time.sleep(1.5)
+    print("Ladies and gentlemen The Eric Andre Showw...")
+    time.sleep(2)
+    print("*Eric jumps and breaks the wall*")
+    time.sleep(3)
+    print("*screams uncontrollably and attacks the band*")
+    time.sleep(3)
+    print("*band is still playing music*")
+    time.sleep(3)
+    print("*he breaks his table and shelves yet again*")
+    time.sleep(3)
+    print("*he gets naked and he has chicken in his hands*")
+    time.sleep(3)
+    print("*he calms down*")
+    time.sleep(1.5)
+    print("Welcome to the Eric Andre show today is a good day, let's call our guest.")
+    time.sleep(3)
+    name = input("Hey guest i know you know me but who are you ? : ")
+    time.sleep(0.2)
+    print("Just kidding i was already knew who you were.")
+    time.sleep(3)
+    print("Anyway as you can see in this battub we have parts of Hannibal.")
+    time.sleep(3)
+    print("We are going to play the hangman with him.")
+    time.sleep(3)
+    print("So right now", name, "inform me that", name, "doesn't want to play the game because I am mentally-ill.")
+    time.sleep(2)
+    print("Just play the game please.")
+    time.sleep(5)
+    print("OK OK", name, "is convinced. Let's give you medium words so you can easily win. OK ?")
+    time.sleep(3)
+    print("Let's play the hangman with Hannibal then.")
+    time.sleep(2)
+    print(""""
+------------------------------------------------------------------------------------------------------------------------                                          
+      0            Hello, my name is Hannibal. I am from Eric Andre show. Talking you from afterlife.
+     /|\\          Eric Andre already shot me and killed me.
+      |            https://www.youtube.com/watch?v=m-AK4FmMG_A 
+     / \\          This is the footage of me getting murdered on the show, I think it's funny.
+                             Just SAVE ME.
+------------------------------------------------------------------------------------------------------------------------                                          
+            """)
+    time.sleep(3)
+    print(who_killed_hannibal(tries))
+    print(secret_word)
+    print("\n")
+    while not guessed and tries > 0:
+        guess = str(input("So what is your guess ?: ")).upper()
+        if len(guess) == 1 and guess.isalpha():
+            if guess in guessed_letters:
+                print("You already guessed,", guess, ", try another.")
+            elif guess not in word_medium:
+                print("The word,", guess, ", you are trying to guess is not in the word, you don't have luck, huh.")
+                tries -= 1
+                guessed_letters.append(guess)
+            else:
+                print("Meh good enough you guessed", guess, "correct.")
+                guessed_letters.append(guess)
+                list_of_word = list(secret_word)
+                indices = [i for i, letter in enumerate(word_medium) if letter == guess]
+                for i in indices:
+                    list_of_word[i] = guess
+                secret_word = "".join(list_of_word)
+                if "_" not in secret_word:
+                    guessed = True
+        elif len(guess) == len(word_medium) and guess.isalpha():
+            if guess in guessed_words:
+                print("AHHHH are you trying to piss me off huh ? You already guessed", guess)
+            elif guess != word_medium:
+                print(guess, "is not the word, how did you come up with this stuff ?")
+                tries -= 1
+                guessed_words.append(guess)
+            else:
+                guessed = True
+                secret_word = word_medium
+        else:
+            print("What are you saying, this is gibberish.")
+        print(who_killed_hannibal(tries))
+        print(secret_word)
+        print("\n")
+    if guessed:
+        print("Look it's not that hard, you win, I lose. Now time to shot myself in the head.")
+    else:
+        print("Hannibal is yet again... Dead. Word was", word_medium, ".")
+
+
+def game_hard(word_hard):
+    secret_word = "_" * len(word_hard)
+    guessed = False
+    guessed_letters = []
+    guessed_words = []
+    tries = 6
+    print("I am not in the mood to talk.")
+    time.sleep(1)
+    name = input("Who are you by the way ?: ")
+    time.sleep(1)
+    print("Ohh right they told me that you come.")
+    time.sleep(2)
+    print("Let's just play the game and go home. I am drubk.")
+    time.sleep(2)
+    print("I will ask you hard words if you can't win I will kill Hannibal over and over and over again.")
+    time.sleep(2)
+    print("If you win I will summon Hannibal and he will return to this disgusting world. OK ?")
+    time.sleep(2)
+    print("""
+------------------------------------------------------------------------------------------------------------------------                                          
+      0            Hello, my name is Hannibal. I am from Eric Andre show. Talking you from afterlife.
+     /|\\          Eric Andre already shot me and killed me.
+      |            https://www.youtube.com/watch?v=m-AK4FmMG_A 
+     / \\          This is the footage of me getting murdered on the show, I think it's funny.
+                             Just SAVE ME.
+------------------------------------------------------------------------------------------------------------------------  
+    """)
+    time.sleep(5)
+    print(who_killed_hannibal(tries))
+    print(secret_word)
+    print("\n")
+    while not guessed and tries > 0:
+        guess = str(input("All this effort get you here what is your guess for this word: ")).upper()
+        if len(guess) == 1 and guess.isalpha():
+            if guess in guessed_letters:
+                print("TRY AGAAINN YOU ALREADY SAID", guess, ".")
+            elif guess not in word_hard:
+                print(guess, "is not in the word that i picked carefully, try again loser.")
+                tries -= 1
+                guessed_letters.append(guess)
+            else:
+                print("You are not good, you are lucky.")
+                guessed_letters.append(guess)
+                list_of_word = list(secret_word)
+                indices = [i for i, letter in enumerate(word_hard) if letter == guess]
+                for i in indices:
+                    list_of_word[i] = guess
+                secret_word = "".join(list_of_word)
+                if "_" not in secret_word:
+                    guessed = True
+        elif len(guess) == len(word_hard) and guess.isalpha():
+            if guess in guessed_words:
+                print("You are repeating yourself, do you have alzheimer, you already guessed", guess)
+                print("You are repeating yourself, do you have alzheimer, you already guessed", guess)
+                print("I think i have alzheimer...")
+            elif guess != word_hard:
+                print("You are just taking a wild guess. Try again it didn't match the word.")
+                tries -= 1
+                guessed_words.append(guess)
+            else:
+                guessed = True
+                secret_word = word_hard
+        else:
+            print("You don't have alzheimer, you are just ill. Wait you don't know that we talked about alzheimer.")
+            print("Yes, yes you have alzheimer. Look at the records after we are done.")
+        print(who_killed_hannibal(tries))
+        print(secret_word)
+        print("\n")
+    if guessed:
+        print("How did you win, are you eminem because you look like you read a lot of dictionary.")
+        print("I take my promises seriously.")
+        print("*Hannibal rises*")
+        print("You win and you can take Hannibal with you. I don't want him anymore.")
+    else:
+        print("""
+                   __________
+                   |        |
+                   |        0
+                   |       /|\\
+                   |        |
+                   |       / \\
+                   |     
+                =======       
+        HaHa you losee, Hannibal dead. You didn't know the word was """, word_hard, ". You are bad.")
+
+
+def who_killed_hannibal(tries):
+    stages = [
+        # you deeeeeadd
+        """
+                   __________
+                   |        |
+                   |        0
+                   |       /|\\
+                   |        |
+                   |       / 
+                   |     
+                =======
+                """,
+        # sixth false
+        """
+                   __________
+                   |        |
+                   |        0
+                   |       /|\\
+                   |        |
+                   |       
+                   |         
+                =======
+                """,
+        # fifth false
+        """
+                   __________
+                   |        |
+                   |        0        
+                   |       /|\\
+                   |        
+                   |    
+                   |      
+                   |     
+                =======
+                """,
+        # fourth false
+        """
+                   __________
+                   |        |
+                   |        0
+                   |       /|
+                   |    
+                   |      
+                   |     
+                =======
+                """,
+        # third false
+        """
+                   __________
+                   |        |
+                   |        0
+                   |        |
+                   |        
+                   |      
+                   |     
+                =======
+                """,
+        # second false
+        """
+                   __________
+                   |        |
+                   |        0
+                   |        
+                   |    
+                   |      
+                   |     
+                =======
+                """,
+        # first false
+        """
+                   __________
+                   |        |
+                   |        
+                   |        
+                   |    
+                   |      
+                   |     
+                =======
+                """,
+        # initial empty state
+
+    ]
+    return stages[tries]
+
+
+while 1:
+    time.sleep(0.5)
+    print("How hard you want to play the game?")
+    time.sleep(1)
+    print("Easy mode is about 5-letter words, medium mode is about 7-letter words, hard mode is just hard.")
+    mode = str(input("Pick one: ")).upper()
+    if mode == "EASY":
+        word_easy = get_word_easy()
+        game_easy(word_easy)
+    elif mode == "MEDIUM":
+        word_medium = get_word_medium()
+        game_medium(word_medium)
+    elif mode == "HARD":
+        word_hard = get_word_hard()
+        game_hard(word_hard)
+    else:
+        sys.exit("Why don't you just pick the options, huh ?")
+    again = input("Wanna play again, I can kill Hannibal anytime, YES or NO : ").upper()
+    if again == "YES":
+        continue
+    elif again == "NO":
+        sys.exit("K then see you never.")
+    else:
+        sys.exit("Why didn't you just say NO.")
