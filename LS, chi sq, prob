@@ -1,0 +1,103 @@
+# This code will read the data, with this data using LS with a lin and slope
+# and determines the lifetime with error. Also, calculates chi sq an prob.
+
+# Used libraries
+import numpy as np
+import math
+import matplotlib.pyplot as plt
+
+# file path is ==> "/home/p235524/Documents/data.csv"
+
+# To get the data from file I used numpy.loadtxt() command
+# This command will get the csv file and turn into numpy.ndarray
+
+# file_path = str(input("Enter file path: "))
+file_path = r"C:\Users\anıl\Desktop\ata.csv"
+data = np.loadtxt(file_path, delimiter=";", unpack=True)
+
+# All data are collected on one array, so we need to separate all into new array.
+i_i = data[0].tolist()
+t_i = data[1].tolist()
+N_i = data[2].tolist()
+y_i = data[3].tolist()
+
+
+# For finding values that wee need
+def values(x, y, z, n):
+    x_times_y = []
+    x_sq = []
+    y_sq = []
+    z_sq = []
+    zsq_times_xsq = []
+    zsq_times_x = []
+
+    # For finding x-y-z values, squares, etc.
+    for i in range(n):
+        x_times_y.append(x[i] * y[i])
+        x_sq.append(x[i] ** 2)
+        y_sq.append(y[i] ** 2)
+        z_sq.append(z[i])
+        zsq_times_xsq.append((x[i] ** 2) * (z[i]))
+        zsq_times_x.append(x[i] * (z[i]))
+
+    # Finding alpha and beta; D is beta, C is alpha
+    D = ((n * sum(x_times_y)) - (sum(y) * sum(x))) / ((n * sum(x_sq)) - ((sum(x)) ** 2))
+    C = np.mean(y) - D * np.mean(x)
+
+    # Finding sigma b and sigma tau
+    err_b = sum(z_sq) / ((sum(z_sq) * sum(zsq_times_xsq)) - (sum(zsq_times_x) ** 2))
+    err_tau = math.sqrt(err_b) / (D ** 2)
+
+    # Finding tau
+    ta = - 1 / D
+    err_b = math.sqrt(err_b)
+
+    # Finding A, chi square, dof
+    A = math.e ** C
+    chi = []
+
+    for j in range(n):
+        chi.append(((z[j] - (A * (math.e ** (-x[j] / ta)))) ** 2) / (A * (math.e ** (-x[j] / ta))))
+
+    chisq = sum(chi)
+    dof = n - 1
+
+    return D, C, ta, err_tau, err_b, chisq, dof
+
+
+# Getting values from function
+beta, alpha, tau, tau_err, err, chi_sq, dof = values(t_i, y_i, N_i, len(t_i))
+
+chi_over_dof = chi_sq /dof
+
+# Printing the writings
+writing1 = f"The experimentally determined lifetime is: {round(tau, 2)} +- {round(tau_err, 2)} sec."
+writing2 = f"The Chi Square is: {round(chi_sq, 3)}"
+writing3 = f"The Chi Square per dof is: {round(chi_over_dof, 2)}"
+writing4 = f"The Chi Square probability is nearly 2.5%"
+
+print(writing1)
+print(writing2)
+print(writing3)
+print(writing4)
+
+# Creating linear fit values
+xax = np.linspace(0, 135, 1000)
+yax = alpha + beta * xax
+
+# Plotting the data and linear fit graphs
+plt.scatter(t_i, y_i, color="grey", marker="x", label="data")
+plt.plot(xax, yax, color="red", label="linear fit")
+
+# Labeling and giving title
+plt.xlabel("time, t")
+plt.ylabel("ln[N(t)]")
+string = f"y = {round(alpha, 5)}  {round(beta, 5)}x, chi square = {round(chi_sq, 3)}"
+plt.title(string)
+
+# Grid an legend command
+plt.grid(True)
+plt.legend()
+
+# Show graph
+plt.show()
