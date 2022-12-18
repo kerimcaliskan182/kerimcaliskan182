@@ -1,5 +1,5 @@
 - 👋 Hi, I’m @kerimcaliskan182
-- 👀 I’m interested in coding in physics
+- 👀 I’m interested in coding in Python and Arduino
 - 🌱 I’m currently learning Java
 - 💞️ I’m looking to collaborate on ...
 - 📫 How to reach me kerimcaliskan12@gmail.com
