@@ -1,0 +1,79 @@
+# Usaing Tsiolkovsky rocket equation, calculate how much minutes passed until the rocket reach escape velocity.
+
+import math
+import time
+
+print("Little information; SpaceShuttle uses SSME rocket engine.")
+time.sleep(2)
+print("After launch Space Shuttle has a speed of 4.5 km/s.")
+time.sleep(2)
+print("Mass of the Space Shuttle with everything is 2 million.")
+time.sleep(2)
+print("This program uses Tsiolkovsky rocket equation: ")
+time.sleep(2)
+print("velocity instant = velocity initial - exhaust velocity * ln(initial mass / final mass)")
+time.sleep(2)
+print("velocity exhaust is product of specific impulse and gravity.")
+time.sleep(2)
+print("This engine's specific impulse is 453 seconds.")
+time.sleep(2)
+print("Let's go to the launch pad and start the launch.")
+time.sleep(2)
+
+Gravity = 9.80665  # m/s^2
+Specific_impulse = 453  # s
+
+Velocity_initial = 4.507  # km / s
+Escape_velocity = 11.19  # km / s to rocket escape the Earth
+Velocity_exhaust = Gravity * Specific_impulse * 10 ** -3  # km / s
+Velocity_instantaneous = 0  # km / s
+
+Mass_initial = 2030000  # kg, all mass of the rocket; fuel, engine, etc.
+Mass_of_the_fuel = 729006.853  # kg, all the propellants which are dropped after liftoff
+Mass_final = Mass_initial - Mass_of_the_fuel
+
+Current_time = 0
+Time = 0
+Time_change = 1
+
+print("Space Shuttle, get ready to lift off.")
+time.sleep(1)
+print("T minus 10...")
+time.sleep(1)
+print("T minus 9...")
+time.sleep(1)
+print("T minus 8...")
+time.sleep(1)
+print("T minus 7...")
+time.sleep(1)
+print("T minus 6...")
+time.sleep(1)
+print("T minus 5...")
+time.sleep(1)
+print("T minus 4...")
+time.sleep(1)
+print("T minus 3...")
+print("Lift-off position for main engines.")
+time.sleep(1)
+print("T minus 2...")
+time.sleep(1)
+print("T minus 1...")
+time.sleep(1)
+print("LIFT-OFF")
+time.sleep(1)
+print("        TIME                    VELOCITY")
+print("---------------------- --------------------------")
+
+while Velocity_instantaneous <= Escape_velocity:
+
+    Current_time = time.localtime()
+    Velocity_instantaneous = Velocity_initial - (
+                Velocity_exhaust * math.log(Mass_final / Mass_initial, math.e)) + Gravity * Time * 10 ** -3
+
+    if Velocity_instantaneous < Escape_velocity:
+        print(str(time.strftime("%b %d %Y %H:%M:%S ", Current_time)) + " : " + str(Velocity_instantaneous) + " km/sec")
+    else:
+        print("Reached Escape Velocity", Escape_velocity)
+
+    Time = Time + Time_change
+    time.sleep(Time_change)
