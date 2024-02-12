@@ -21,8 +21,11 @@ word_list_easy = ["seven",
                   "fifty",
                   "woman",
                   "words",
-                  "lemon", ]
-word_list_medium = ["acquits,",
+                  "lemon",
+                  "orange",
+                  "apple"]
+
+word_list_medium = ["acquits",
                     "calyxes",
                     "coziest",
                     "rasputin",
@@ -37,8 +40,12 @@ word_list_medium = ["acquits,",
                     "history",
                     "avoider",
                     "ageists",
-                    "",
-                    ]
+                    "exhaust",
+                    "rhinoceros",
+                    "neutrinos",
+                    "galaxies",
+                    "chocolate"]
+
 word_list_hard = ["alzheimers",
                   "relaxation",
                   "depression",
@@ -55,7 +62,11 @@ word_list_hard = ["alzheimers",
                   "absconders",
                   "abscessing",
                   "bumblefoot",
-                  ]
+                  "perplexity",
+                  "tesseract",
+                  "zygomatic",
+                  "vexatious",
+                  "indubitably"]
 
 
 def get_word_easy():
