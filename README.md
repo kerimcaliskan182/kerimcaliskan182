@@ -11,7 +11,7 @@ I have worked extensively with **Linux OS** and various communication protocols 
 - Wrote and tested firmware for MCUs, focusing on low-level hardware programming and real-time system requirements.
 - Worked in **Linux** environments to manage, debug, and optimize embedded system applications.
 
-### 2. Firmware Development for SenseBox 7043D Sensor
+### 2. Firmware Development
 I developed firmware for **sensors** using **Mbed OS 6**, focusing on reliable and efficient operation. This involved embedded programming in **C++** and optimizing sensor performance for real-time applications.
 
 **Key Contributions**:
